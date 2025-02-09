@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Students - Student Database</title>
+    <style>
+        /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    width: 100%;
+}
+
+header .logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+header .title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+aside {
+    margin-top: 45px;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    padding-top: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    animation: slideIn 0.5s ease-out;
+}
+
+aside nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside nav ul li {
+    margin: 15px 0;
+}
+
+aside nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    display: block;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+aside nav ul li a:hover {
+    background-color: #4CAF50;
+}
+
+main {
+    margin-left: 220px;
+    padding: 20px;
+    flex-grow: 1;
+    animation: fadeIn 1s ease-out;
+    margin-top: 80px;
+}
+
+
+.students-list {
+    max-width: 1000px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideUp 1s ease-out;
+}
+
+.students-list h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Table Styles */
+.table-container {
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    text-align: left;
+    font-size: 0.9rem;
+}
+
+thead th {
+    position: sticky;
+    top: 0;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border-bottom: 2px solid #ddd;
+}
+
+tbody td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+    transition: background-color 0.3s ease;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+    </style>
+</head>
+
+<body>
+    <header>
+       
+        <div class="title">
+            <span>Student Database - All Students</span>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="/posts/">HOME</a></li>
+                <li><a href="/register/">REGISTRATION</a></li>
+                <li><a href="/search/">SEARCH STUDENT</a></li>
+                <li><a href="/allstudents/">All STUDENTS</a></li>
+                <li><a href="/edit/">UPDATE DETAILS</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section class="students-list">
+            <h2>All Students</h2>
+            <div class="table-container">
+                
+   
+                <table>
+                    <tr>
+                        <th>Full Name</th>
+                        <th>Father's Name</th>
+                        <th>Date of Birth</th>
+                        <th>Phone</th>
+                        <th>Student ID</th>
+                        <th>Address</th>
+                    </tr>
+                    {% for student in students %}
+                    <tr>
+                        <td>{{ student.full_name }}</td>
+                        <td>{{ student.father_name }}</td>
+                        <td>{{ student.dob }}</td>
+                        <td>{{ student.phone }}</td>
+                        <td>{{ student.student_id }}</td>
+                        <td>{{ student.address }}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Student Database. All rights reserved.</p>
+    </footer>
+</body>
+</html>

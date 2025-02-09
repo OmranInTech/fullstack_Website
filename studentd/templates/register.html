@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration - Student Database</title>
+    <style>           
+	
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    position:fixed;
+    width: 100%;
+}
+
+
+header .title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+aside {
+    margin-top: 45px;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    padding-top: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    animation: slideIn 0.5s ease-out;
+}
+
+aside nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside nav ul li {
+    margin: 15px 0;
+}
+
+aside nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    display: block;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+aside nav ul li a:hover {
+    background-color: #4CAF50;
+}
+
+main {
+    margin-left: 220px;
+    margin-top: 90px;
+    padding: 20px;
+    flex-grow: 1;
+    animation: fadeIn 1s ease-out;
+}
+
+.registration-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideUp 1s ease-out;
+}
+
+.registration-form h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.form-container .form-group {
+    margin-bottom: 12px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.form-container input,
+.form-container textarea {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.form-container input:focus,
+.form-container textarea:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.form-container button {
+    padding: 8px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+	</style>
+</head>
+
+<body>
+    <header>
+      
+        <div class="title">
+            <span>Student Database - Registration</span>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="/posts/">HOME</a></li>
+                <li><a href="/register/">REGISTRATION</a></li>
+                <li><a href="/search/">SEARCH STUDENT</a></li>
+                <li><a href="/allstudents/">All STUDENTS</a></li>
+                <li><a href="/edit/">UPDATE DETAILS</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section class="registration-form">
+            <h2>Register New Student</h2>
+            <form method="POST" action="/register/" class="form-container">
+
+                {% csrf_token %}
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label for="full-name">Full Name:</label>
+                    <input type="text" id="full-name" name="full_name" required placeholder="Enter full name">
+                </div>
+            
+                <!-- Father's Name -->
+                <div class="form-group">
+                    <label for="father-name">Father's Name:</label>
+                    <input type="text" id="father-name" name="father_name" required placeholder="Enter father's name">
+                </div>
+            
+                <!-- Date of Birth -->
+                <div class="form-group">
+                    <label for="dob">Date of Birth:</label>
+                    <input type="date" id="dob" name="dob" required>
+                </div>
+            
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required placeholder="+1 234 567 8901">
+                </div>
+            
+                <!-- Student ID -->
+                <div class="form-group">
+                    <label for="student-id">Student ID:</label>
+                    <input type="text" id="student-id" name="student_id" required placeholder="e.g., S12345">
+                </div>
+            
+                <!-- Address -->
+                <div class="form-group">
+                    <label for="address">Address:</label>
+                    <textarea id="address" name="address" required placeholder="Enter address"></textarea>
+                </div>
+            
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Register</button>
+                </div>
+            </form>
+           
+    </div>
+
+            
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Student Database. All rights reserved.</p>
+    </footer>
+</body>
+</html>

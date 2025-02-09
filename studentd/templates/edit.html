@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student - Student Database</title>
+   <style>
+    /* Reset and Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    position: fixed;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+header .logo img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+header .title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+aside {
+    margin-top: 45px;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    padding-top: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    animation: slideIn 0.5s ease-out;
+}
+
+aside nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside nav ul li {
+    margin: 15px 0;
+}
+
+aside nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    display: block;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+aside nav ul li a:hover {
+    background-color: #4CAF50;
+}
+
+main {
+    margin-top: 90px;
+    margin-left: 220px;
+    padding: 20px;
+    flex-grow: 1;
+    animation: fadeIn 1s ease-out;
+}
+
+.edit-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideUp 1s ease-out;
+}
+
+.edit-form h2, .edit-form h3 {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+
+/* Form Styles */
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.form-group textarea {
+    resize: vertical;
+}
+
+.submit-btn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn:hover {
+    background-color: #45a049;
+}
+
+/* Footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+   </style>
+</head>
+
+<body>
+    <header>
+       
+        <div class="title">
+            <span>Student Database - Edit Student</span>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="/posts/">HOME</a></li>
+                <li><a href="/register/">REGISTRATION</a></li>
+                <li><a href="/search/">SEARCH STUDENT</a></li>
+                <li><a href="/allstudents/">All STUDENTS</a></li>
+                <li><a href="/edit/">UPDATE DETAILS</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section class="edit-form">
+            <h2>Edit Student Details</h2>
+            <form method="POST" action="/edit/" class="form-container">
+                {% csrf_token %}
+                
+                <!-- Original student details for identification -->
+                <h3>Current Student Information</h3>
+                <div class="form-group">
+                    <label for="current_name">Current Student Name:</label>
+                    <input type="text" id="current_name" name="current_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="current_id">Current Student ID:</label>
+                    <input type="text" id="current_id" name="current_id" required>
+                </div>
+
+                <!-- New details to update -->
+                <h3>New Student Information</h3>
+                <div class="form-group">
+                    <label for="new_name">New Student Name:</label>
+                    <input type="text" id="new_name" name="new_name">
+                </div>
+                <div class="form-group">
+                    <label for="new_father_name">New Father's Name:</label>
+                    <input type="text" id="new_father_name" name="new_father_name">
+                </div>
+                <div class="form-group">
+                    <label for="new_dob">New Date of Birth:</label>
+                    <input type="date" id="new_dob" name="new_dob">
+                </div>
+                <div class="form-group">
+                    <label for="new_phone">New Phone Number:</label>
+                    <input type="text" id="new_phone" name="new_phone">
+                </div>
+                <div class="form-group">
+                    <label for="new_address">New Address:</label>
+                    <textarea id="new_address" name="new_address"></textarea>
+                </div>
+            
+                {{ form.as_p }}
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Update Details</button>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Student Database. All rights reserved.</p>
+    </footer>
+</body>
+</html>

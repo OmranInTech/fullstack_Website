@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Student - Student Database</title>
+  <style>
+    
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+header {
+    background-color: #4CAF50;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+header .title {
+    flex-grow: 1;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+aside {
+    margin-top: 45px;
+    width: 200px;
+    background-color: #333;
+    color: white;
+    height: 100vh;
+    padding-top: 40px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    animation: slideIn 0.5s ease-out;
+}
+
+aside nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+aside nav ul li {
+    margin: 15px 0;
+}
+
+aside nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 1rem;
+    display: block;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+aside nav ul li a:hover {
+    background-color: #4CAF50;
+}
+
+main {
+    margin-top: 60px;
+    margin-left: 220px;
+    padding: 20px;
+    flex-grow: 1;
+    animation: fadeIn 1s ease-out;
+}
+
+.search-form {
+    max-width: 500px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    animation: slideUp 1s ease-out;
+}
+
+.search-form h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.form-container .form-group {
+    margin-bottom: 15px;
+}
+
+.form-container label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 1rem;
+}
+
+.form-container input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    transition: border-color 0.3s ease;
+}
+
+.form-container input:focus {
+    border-color: #4CAF50;
+    outline: none;
+}
+
+.form-container button {
+    padding: 10px 15px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #45a049;
+}
+
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 12px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Animations */
+@keyframes slideIn {
+    from {
+        transform: translateX(-200px);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Student table container */
+.student-table {
+    display: table;
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table rows */
+.student-row {
+    display: table-row;
+}
+
+/* Header row styling */
+.student-row.header {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+/* Table cells */
+.student-cell {
+    display: table-cell;
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+/* Alternating row background */
+.student-row:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+/* Hover effect for rows */
+.student-row:hover {
+    background-color: #07490f;
+    color:white;
+}
+</style>
+
+  
+</head>
+<body>
+    <header>
+     
+        <div class="title">
+            <span>Student Database - Search</span>
+        </div>
+    </header>
+
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="/posts/">HOME</a></li>
+                <li><a href="/register/">REGISTRATION</a></li>
+                <li><a href="/search/">SEARCH STUDENT</a></li>
+                <li><a href="/allstudents/">All STUDENTS</a></li>
+                <li><a href="/edit/">UPDATE DETAILS</a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <main>
+        <section class="search-form">
+            <h2>Search for a Student</h2>
+            <form method="POST" action="/search/" class="form-container">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="search-name">Student Name:</label>
+                    <input type="text" id="search-name" name="search_name" placeholder="Enter student name">
+                </div>
+        
+                <div class="form-group">
+                    <label for="search-id">Student ID:</label>
+                    <input type="text" id="search-id" name="search_id" placeholder="Enter student ID">
+                </div>
+        
+                <div class="form-group">
+                    <button type="submit" class="submit-btn">Search</button>
+                </div>
+            </form>
+        </section>
+        
+        {% if students %}
+        <section class="search-results">
+            <h2>Search Results</h2>
+            <div class="student-table">
+                <div class="student-row header">
+                    <div class="student-cell">Full Name</div>
+                    <div class="student-cell">Father's Name</div>
+                    <div class="student-cell">Date of Birth</div>
+                    <div class="student-cell">Phone</div>
+                    <div class="student-cell">Student ID</div>
+                    <div class="student-cell">Address</div>
+                </div>
+                {% for student in students %}
+                <div class="student-row">
+                    <div class="student-cell">{{ student.full_name }}</div>
+                    <div class="student-cell">{{ student.father_name }}</div>
+                    <div class="student-cell">{{ student.dob }}</div>
+                    <div class="student-cell">{{ student.phone }}</div>
+                    <div class="student-cell">{{ student.student_id }}</div>
+                    <div class="student-cell">{{ student.address }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
+        {% elif students is not None %}
+        <p>No students found matching the criteria.</p>
+        {% endif %}
+        
+        
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Student Database. All rights reserved.</p>
+    </footer>
+</body>
+</html>
